@@ -1,0 +1,41 @@
+//C语言fprintf()函数：输出函数(格式化输出数据至文件)
+#include <stdio.h>//头文件
+
+int fprintf(FILE * stream, const char * format, ...);//函数定义
+/*
+函数说明：fprintf()会根据参数format 字符串来转换并格式化数据, 然后将结果输出到参数stream 指定的文件中, 直到出现字符串结束('\0')为止。
+返回值：关于参数format 字符串的格式请参考printf(). 成功则返回实际输出的字符数, 失败则返回-1, 错误原因存于errno 中.
+*/
+//范例
+#include <stdio.h>
+main()
+{
+    int i = 150;
+    int j = -100;
+    double k = 3.14159;
+    fprintf(stdout, "%d %f %x \n", j, k, i);
+    fprintf(stdout, "%2d %*d\n", i, 2, i);
+}
+/*
+范例执行结果：
+-100 3.141590 96
+150 150
+*/
+//fprintf 函数的功能是： Print formatted data to a stream
+//格式化输出数据到流，这个流并没有特指是文件流。
+/*关于 stdin、stdout、stderr 的说明如下：
+
+By default, standard input is read from the keyboard, while standard output and standard error are printed to the screen
+
+默认情况下，标准输入从键盘读取，同时标准输出和标准错误会打印到屏幕。
+
+在控制台测试 ：
+
+void main( void )
+{
+   fprintf(stderr, "%s:%d", __FILE__, __LINE__);
+   system("pause");
+}
+
+会在屏幕显示当前文件的路径和fprintf语句所在的行数。
+*/
