@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(){
-	int a[]={2,7,11,9};
+    int a[]={2,7,11,9};
     int array[4];
     int* p=&a[0];
     int s;
