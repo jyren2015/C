@@ -24,23 +24,9 @@ class Producer implements Runnable{
 
     public void Produce(){
         int i = 0;
-//        int count = 0;
-//        while (count < 51){
-//            count ++;
-//            i++;
-//            while (this.producerAndConsumer.resources.empty.get() <= 0 ||
-//                    this.producerAndConsumer.resources.mutex.compareAndSet(1, 0)){}
-//            this.producerAndConsumer.resources.empty.getAndDecrement();
-//            this.producerAndConsumer.resources.item[this.producerAndConsumer.resources.in] = i;
-//            System.out.println("产品已生产" + i);
-//            this.producerAndConsumer.resources.in = (this.producerAndConsumer.resources.in + 1) % 17;
-//            if (this.producerAndConsumer.resources.mutex.getAndSet(1) == 0){
-//                System.out.println("生产者释放锁成功");
-//            }
-//            this.producerAndConsumer.resources.full.getAndIncrement();
-//        }
-        while (true){
-
+        int count = 0;
+        while (count < 510){
+            count ++;
             i++;
             while (this.producerAndConsumer.resources.empty.get() <= 0 ||
                     this.producerAndConsumer.resources.mutex.compareAndSet(1, 0)){}
@@ -53,11 +39,26 @@ class Producer implements Runnable{
             }
             this.producerAndConsumer.resources.full.getAndIncrement();
         }
+//        while (true){
+//
+//            i++;
+//            while (this.producerAndConsumer.resources.empty.get() <= 0 ||
+//                    this.producerAndConsumer.resources.mutex.compareAndSet(1, 0)){}
+//            this.producerAndConsumer.resources.empty.getAndDecrement();
+//            this.producerAndConsumer.resources.item[this.producerAndConsumer.resources.in] = i;
+//            System.out.println("产品已生产" + i);
+//            this.producerAndConsumer.resources.in = (this.producerAndConsumer.resources.in + 1) % 17;
+//            if (this.producerAndConsumer.resources.mutex.getAndSet(1) == 0){
+//                System.out.println("生产者释放锁成功");
+//            }
+//            this.producerAndConsumer.resources.full.getAndIncrement();
+//        }
     }
 
-    @Override
+    @Override//在linux中删掉注解
     public void run() {
         this.Produce();
+        System.out.println("生产者线程结束");
     }
 }
 
@@ -68,7 +69,10 @@ class Consumer implements Runnable{
     }
 
     public void Consume(){
-        while (true){
+
+        int count = 0;
+        while (count < 510){
+            count ++;
             while (this.producerAndConsumer.resources.full.get() <=0 ||
                     this.producerAndConsumer.resources.mutex.compareAndSet(1, 0)){}
             this.producerAndConsumer.resources.full.getAndDecrement();
@@ -80,11 +84,25 @@ class Consumer implements Runnable{
             }
             this.producerAndConsumer.resources.empty.getAndIncrement();
         }
+
+//        while (true){
+//            while (this.producerAndConsumer.resources.full.get() <=0 ||
+//                    this.producerAndConsumer.resources.mutex.compareAndSet(1, 0)){}
+//            this.producerAndConsumer.resources.full.getAndDecrement();
+//            int production = this.producerAndConsumer.resources.item[this.producerAndConsumer.resources.out];
+//            System.out.println("产品已消费" + production);
+//            this.producerAndConsumer.resources.out = (this.producerAndConsumer.resources.out + 1) % 17;
+//            if (this.producerAndConsumer.resources.mutex.getAndSet(1) == 0){
+//                System.out.println("消费者释放锁成功");
+//            }
+//            this.producerAndConsumer.resources.empty.getAndIncrement();
+//        }
     }
 
-    @Override
+    @Override//在linux中删掉注解
     public void run() {
         this.Consume();
+        System.out.println("消费者线程结束");
     }
 }
 
@@ -97,8 +115,9 @@ public class ProducerAndConsumer {
     public ProducerAndConsumer(){
         exec.execute(producer);
         //exec.execute(producer);
-        exec.execute(consumer);
         //exec.execute(consumer);
+        exec.execute(consumer);
+        exec.shutdown();
     }
 
     public static void main(String[] args){
