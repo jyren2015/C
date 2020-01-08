@@ -1,7 +1,6 @@
 /**
  * Created by RJYWORK on 2020/1/8
  * Description:
- * 
  * Definition for singly-linked list:
  * public class ListNode {
  *     int val;
