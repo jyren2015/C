@@ -1,6 +1,13 @@
 /**
  * Created by RJYWORK on 2020/1/8
  * Description:
+ * 
+ * Definition for singly-linked list:
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
  */
 public class Rotateright {
     public ListNode rotateRight(ListNode head, int k) {
